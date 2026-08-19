@@ -369,16 +369,24 @@
   }
 
   .settings-input {
-    background: transparent;
-    border: none;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--accent);
     font-family: var(--font);
     font-size: 16px;
     font-weight: 700;
-    width: 90px;
+    width: 120px;
+    min-height: 44px;
+    padding: 8px 12px;
     text-align: right;
     outline: none;
     font-variant-numeric: tabular-nums;
+    cursor: text;
+  }
+
+  .settings-input:focus {
+    border-color: var(--accent);
   }
 
   .settings-input::-webkit-outer-spin-button,
@@ -594,7 +602,7 @@
 
     <div class="settings-section">
       <div class="settings-label">Měsíční příjem</div>
-      <div class="settings-row">
+      <div class="settings-row" onclick="this.querySelector('input').focus()">
         <span>💰 Celkový příjem</span>
         <input class="settings-input" type="number" id="incomeInput" placeholder="0">
       </div>
@@ -875,7 +883,7 @@ function openSettings() {
   document.getElementById('incomeInput').value = state.income || '';
   const cont = document.getElementById('limitInputs');
   cont.innerHTML = ENVELOPES.map(e =>
-    `<div class="settings-row">
+    `<div class="settings-row" onclick="this.querySelector('input').focus()">
       <div class="settings-row-left"><span>${e.icon}</span> ${e.name}</div>
       <input class="settings-input" type="number" id="limit_${e.id}" value="${state.limits[e.id] || ''}" placeholder="0">
     </div>`
@@ -1074,7 +1082,6 @@ render();
 if (recurringJustApplied) {
   setTimeout(() => showToast('🔁 Pravidelné výdaje byly automaticky odečteny'), 500);
 }
-
 </script>
 </body>
 </html>
